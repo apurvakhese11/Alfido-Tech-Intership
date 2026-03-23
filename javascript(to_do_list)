@@ -1,0 +1,39 @@
+const input = document.getElementById('todoInput');
+const addBtn = document.getElementById('addBtn');
+const todoList = document.getElementById('todoList');
+
+// Function to add a task
+function addTask() {
+    const taskValue = input.value;
+
+    if (taskValue.trim() === "") {
+        alert("Please enter a task!");
+        return;
+    }
+
+    // 1. Create the <li> element
+    const li = document.createElement('li');
+    li.innerHTML = `
+        <span>${taskValue}</span>
+        <button class="delete-btn">Delete</button>
+    `;
+
+    // 2. Add delete functionality to the button inside <li>
+    li.querySelector('.delete-btn').addEventListener('click', function() {
+        li.remove();
+    });
+
+    // 3. Append to the list
+    todoList.appendChild(li);
+
+    // 4. Clear input
+    input.value = "";
+}
+
+// Event Listeners
+addBtn.addEventListener('click', addTask);
+
+// Allow pressing "Enter" to add task
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTask();
+});
